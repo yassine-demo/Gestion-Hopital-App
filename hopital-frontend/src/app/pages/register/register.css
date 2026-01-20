@@ -1,0 +1,494 @@
+
+:host {
+  --primary-color: #4A90E2;
+  --secondary-color: #7ED321;
+  --accent-color: #FF6B6B;
+  --background-light: #F8F9FA;
+  --background-white: #FFFFFF;
+  --text-dark: #333333;
+  --text-light: #666666;
+  --border-color: #E1E8ED;
+  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 15px 50px rgba(0, 0, 0, 0.1);
+  --radius-soft: 12px;
+  --radius-medium: 20px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Background Animation */
+.register-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+  z-index: -2;
+  overflow: hidden;
+}
+
+/* Animated Medical Elements */
+.medical-animation {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.medical-pulse {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(74, 144, 226, 0.15);
+  border-radius: 50%;
+  animation: pulseCircle 8s infinite ease-in-out;
+}
+
+.medical-pulse:nth-child(1) {
+  top: 15%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.medical-pulse:nth-child(2) {
+  top: 25%;
+  left: 75%;
+  animation-delay: 1s;
+}
+
+.medical-pulse:nth-child(3) {
+  top: 65%;
+  left: 85%;
+  animation-delay: 2s;
+}
+
+.medical-pulse:nth-child(4) {
+  top: 85%;
+  left: 25%;
+  animation-delay: 3s;
+}
+
+.medical-pulse:nth-child(5) {
+  top: 45%;
+  left: 40%;
+  animation-delay: 4s;
+}
+
+/* Medical Symbol Waves */
+.medical-wave {
+  position: absolute;
+  font-size: 20px;
+  opacity: 0;
+  animation: medicalWave 10s infinite linear;
+}
+
+.medical-wave:nth-child(6) {
+  top: 20%;
+  left: 85%;
+  color: rgba(126, 211, 33, 0.1);
+  animation-delay: 0s;
+}
+
+.medical-wave:nth-child(7) {
+  top: 80%;
+  left: 15%;
+  color: rgba(74, 144, 226, 0.1);
+  animation-delay: 3s;
+}
+
+/* Main Container */
+.register-container {
+  position: relative;
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 40px;
+  background: var(--background-white);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-medium);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transform: translateY(0);
+  transition: var(--transition-smooth);
+  overflow: hidden;
+}
+
+.register-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+/* Header Section */
+.register-header {
+  text-align: center;
+  margin-bottom: 35px;
+  position: relative;
+}
+
+.register-header h3 {
+  color: var(--text-dark);
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  position: relative;
+  display: inline-block;
+}
+
+.register-header h3::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  border-radius: 2px;
+}
+
+.role-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary-color), #357ABD);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-left: 10px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Form Styling */
+.register-form {
+  position: relative;
+}
+
+.form-section {
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+  font-weight: 500;
+  font-size: 14px;
+  transition: var(--transition-smooth);
+}
+
+.form-control {
+  width: 90%;
+  padding: 14px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-soft);
+  font-size: 15px;
+  transition: var(--transition-smooth);
+  background: var(--background-light);
+  color: var(--text-dark);
+  outline: none;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  background: var(--background-white);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.form-control::placeholder {
+  color: #A0AEC0;
+}
+
+/* Select Styling */
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper::after {
+  content: '▼';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-light);
+  pointer-events: none;
+  font-size: 12px;
+}
+
+/* Role-based Sections */
+.role-section {
+  background: rgba(248, 249, 250, 0.5);
+  border-radius: var(--radius-soft);
+  padding: 20px;
+  margin: 25px 0;
+  border: 1px solid rgba(225, 232, 237, 0.5);
+  animation: slideDown 0.4s ease-out;
+}
+
+.role-section h4 {
+  color: var(--primary-color);
+  font-size: 16px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Separator */
+.form-separator {
+  display: flex;
+  align-items: center;
+  margin: 30px 0;
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+.form-separator::before,
+.form-separator::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+}
+
+.form-separator span {
+  padding: 0 15px;
+}
+
+/* Submit Button */
+.btn-register {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--secondary-color), #6BB820);
+  color: white;
+  border: none;
+  border-radius: var(--radius-soft);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.btn-register:hover:not(:disabled) {
+  background: linear-gradient(135deg, #6BB820, var(--secondary-color));
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(126, 211, 33, 0.3);
+}
+
+.btn-register:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-register:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: linear-gradient(135deg, #A0AEC0, #718096);
+}
+
+/* Login Link */
+.login-link {
+  display: block;
+  text-align: center;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(225, 232, 237, 0.5);
+}
+
+.login-link a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-soft);
+  transition: var(--transition-smooth);
+}
+
+.login-link a:hover {
+  background: rgba(74, 144, 226, 0.1);
+  transform: translateX(-5px);
+}
+
+/* Loading Spinner */
+.btn-register.loading {
+  color: transparent;
+}
+
+.btn-register.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s linear infinite;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Animations */
+@keyframes pulseCircle {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: scale(1.8);
+    opacity: 0.05;
+  }
+}
+
+@keyframes medicalWave {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.1;
+  }
+  50% {
+    transform: translateY(-100px) rotate(180deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Validation Styles */
+.form-group.required label::after {
+  content: ' *';
+  color: var(--accent-color);
+}
+
+.form-control.ng-invalid.ng-touched {
+  border-color: var(--accent-color);
+}
+
+.error-message {
+  color: var(--accent-color);
+  font-size: 12px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Role Icons */
+.role-icon {
+  font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
+  .register-container {
+    margin: 40px 20px;
+    padding: 30px 25px;
+  }
+  
+  .register-header h3 {
+    font-size: 22px;
+  }
+  
+  .form-control {
+    padding: 12px 14px;
+  }
+  
+  .role-section {
+    padding: 15px;
+  }
+}
+
+/* Progress Indicator */
+.progress-steps {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.progress-step {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-color);
+  transition: var(--transition-smooth);
+}
+
+.progress-step.active {
+  background: var(--primary-color);
+  transform: scale(1.3);
+}
+
+/* Info Tooltips */
+.info-tooltip {
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
+  cursor: help;
+}
+
+.info-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text-dark);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-smooth);
+  z-index: 1000;
+}
+
+.info-tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+  bottom: 120%;
+}

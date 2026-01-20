@@ -1,0 +1,28 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MedecinService {
+  private apiUrl = 'http://localhost:8080/api/medecins-autorises';
+
+  constructor(private http: HttpClient) { }
+
+  getAllMedecins(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  addMedecin(medecin: any): Observable<any> {
+    return this.http.post(this.apiUrl, medecin);
+  }
+
+  deleteMedecin(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  updateMedecin(id: number, medecin: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, medecin);
+  }
+}

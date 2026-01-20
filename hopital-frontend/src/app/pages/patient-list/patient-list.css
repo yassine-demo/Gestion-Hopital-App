@@ -1,0 +1,537 @@
+/* ===== TYPOGRAPHIE  ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap');
+
+:host {
+  display: block;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  color: #2c3e50;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* ===== TITRE PRINCIPAL ===== */
+h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid #3b82f6;
+  position: relative;
+  animation: slideInDown 0.5s ease-out;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 2px;
+}
+
+/* ===== BOUTON AJOUTER ===== */
+.btn-primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  padding: 0.85rem 1.75rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2rem;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '+';
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(59, 130, 246, 0.35);
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.25);
+}
+
+/* ===== TABLEAU ===== */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.6s ease-out;
+  margin-bottom: 2rem;
+}
+
+/* En-tête du tableau */
+thead {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+}
+
+thead th {
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 1.25rem 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+thead th:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+thead th:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Corps du tableau */
+tbody tr {
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #e2e8f0;
+  animation: slideInRow 0.5s ease-out backwards;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+tbody tr:hover {
+  background-color: #f0f9ff;
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+tbody td {
+  padding: 1.25rem 1rem;
+  color: #475569;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ID avec style spécial */
+td strong {
+  color: #3b82f6;
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: #eff6ff;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+/* ===== BOUTONS D'ACTION ===== */
+td:last-child {
+  white-space: nowrap;
+}
+
+.btn-edit, .btn-delete {
+  padding: 0.65rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s ease;
+  margin: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-edit::before {
+  content: '✎';
+  font-size: 0.9rem;
+}
+
+.btn-delete::before {
+  content: '🗑';
+  font-size: 0.9rem;
+}
+
+.btn-edit {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 3px 5px rgba(16, 185, 129, 0.2);
+}
+
+.btn-edit:hover {
+  background: linear-gradient(135deg, #0da271 0%, #047857 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  box-shadow: 0 3px 5px rgba(239, 68, 68, 0.2);
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(239, 68, 68, 0.3);
+}
+
+
+/* ===== BOUTONS D'ACTION AMÉLIORÉS ===== */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn-edit, .btn-delete {
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 120px;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-edit::before, .btn-delete::before {
+  display: none; /* On va utiliser des icônes Font Awesome */
+}
+
+.btn-edit i, .btn-delete i {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-edit {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: 2px solid #10b981;
+}
+
+.btn-edit:hover {
+  background: linear-gradient(135deg, #0da271 0%, #047857 100%);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 15px rgba(16, 185, 129, 0.35);
+  border-color: #0da271;
+}
+
+.btn-edit:hover i {
+  transform: rotate(15deg);
+}
+
+.btn-edit:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: 2px solid #ef4444;
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 15px rgba(239, 68, 68, 0.35);
+  border-color: #dc2626;
+}
+
+.btn-delete:hover i {
+  transform: scale(1.2);
+}
+
+.btn-delete:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+}
+
+/* Effet de vague au survol */
+.btn-edit::after, .btn-delete::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.btn-edit:hover::after, .btn-delete:hover::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20, 20);
+    opacity: 0;
+  }
+}
+
+/* Animation de pulse pour les boutons au chargement */
+.btn-edit.loading, .btn-delete.loading {
+  position: relative;
+  color: transparent;
+}
+
+.btn-edit.loading::before, .btn-delete.loading::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s linear infinite;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Responsive pour les boutons */
+@media (max-width: 768px) {
+  .btn-edit, .btn-delete {
+    min-width: 100px;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-edit, .btn-delete {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+/* Effet de brillance au survol */
+.btn-edit:hover, .btn-delete:hover {
+  background-size: 200% 200%;
+  animation: gradientShift 2s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+/* ===== ÉTAT VIDE ===== */
+div[style*="padding: 20px"] {
+  background: white;
+  border-radius: 12px;
+  padding: 3rem !important;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.8s ease-out;
+  margin-top: 2rem;
+  border: 2px dashed #e2e8f0;
+}
+
+div[style*="padding: 20px"]::before {
+  content: '👨‍⚕️';
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+div[style*="padding: 20px"] {
+  color: #64748b !important;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRow {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-pending {
+    background-color: #f1c40f;
+    color: #fff;
+}
+
+.status-confirmed {
+    background-color: #27ae60;
+    color: #fff;
+}
+
+.status-cancelled {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.empty-msg {
+    padding: 20px;
+    color: #7f8c8d;
+    background: #f9f9f9;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Animation pour chaque ligne */
+tbody tr:nth-child(1) { animation-delay: 0.1s; }
+tbody tr:nth-child(2) { animation-delay: 0.2s; }
+tbody tr:nth-child(3) { animation-delay: 0.3s; }
+tbody tr:nth-child(4) { animation-delay: 0.4s; }
+tbody tr:nth-child(5) { animation-delay: 0.5s; }
+tbody tr:nth-child(n+6) { animation-delay: 0.6s; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  thead th, tbody td {
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  :host {
+    padding: 15px;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+  }
+  
+  .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .btn-edit, .btn-delete {
+    min-width: 80px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== INDICATEUR DE CHARGEMENT VISUEL ===== */
+.loading-skeleton {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

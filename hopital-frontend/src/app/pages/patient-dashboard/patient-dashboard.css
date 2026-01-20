@@ -1,0 +1,541 @@
+/* Base Styles & Variables */
+:host {
+  --primary-color: #4A90E2;
+  --secondary-color: #7ED321;
+  --accent-color: #FF6B6B;
+  --background-light: #F8F9FA;
+  --background-white: #FFFFFF;
+  --text-dark: #333333;
+  --text-light: #666666;
+  --border-color: #E1E8ED;
+  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 15px 50px rgba(0, 0, 0, 0.1);
+  --radius-soft: 12px;
+  --radius-medium: 20px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --header-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Dashboard Container */
+.dashboard-container {
+  padding: 30px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+  min-height: 100vh;
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Welcome Banner */
+.welcome-banner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 35px;
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-medium);
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.6s ease-out;
+}
+
+.welcome-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.3;
+}
+
+.welcome-banner h3 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+  color: #00274e;
+}
+
+.welcome-banner p {
+  font-size: 16px;
+  opacity: 0.9;
+  max-width: 600px;
+  position: relative;
+  z-index: 1;
+  color: #00274e;
+}
+
+/* Section Header */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px 0 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.section-header h4 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-header h4::before {
+  content: '';
+  width: 30px;
+  height: 3px;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  border-radius: 2px;
+}
+
+.available-badge {
+  background: linear-gradient(135deg, var(--secondary-color), #6BB820);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 500;
+  animation: pulseBadge 2s infinite;
+  box-shadow: 0 4px 15px rgba(126, 211, 33, 0.3);
+}
+
+/* Doctors Table */
+.table-container {
+  background: var(--background-white);
+  border-radius: var(--radius-medium);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 40px;
+  transition: var(--transition-smooth);
+}
+
+.table-container:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.doctors-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.doctors-table thead {
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+}
+
+.doctors-table th {
+  padding: 20px;
+  text-align: left;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.doctors-table tbody tr {
+  border-bottom: 1px solid var(--border-color);
+  transition: var(--transition-smooth);
+  animation: slideInRow 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+.doctors-table tbody tr:hover {
+  background: rgba(74, 144, 226, 0.05);
+  transform: translateX(5px);
+}
+
+.doctors-table tbody tr:nth-child(even) {
+  background: rgba(248, 249, 250, 0.5);
+}
+
+.doctors-table td {
+  padding: 20px;
+  vertical-align: middle;
+}
+
+/* Doctor Info Cells */
+.doctor-cell {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.doctor-avatar {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--primary-color), #357ABD);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.doctor-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.doctor-name {
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 16px;
+}
+
+.doctor-title {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+/* Speciality Badge */
+.speciality-badge {
+  background: linear-gradient(135deg, #e1f5fe, #b3e5fc);
+  color: #0277bd;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+  border-left: 3px solid var(--primary-color);
+}
+
+/* Contact Info */
+.contact-info {
+  color: var(--text-light);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-info::before {
+  content: '📧';
+  font-size: 12px;
+}
+
+/* Appointment Button */
+.btn-rdv {
+  background: linear-gradient(135deg, var(--secondary-color), #6BB820);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius-soft);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-rdv:hover {
+  background: linear-gradient(135deg, #6BB820, var(--secondary-color));
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(126, 211, 33, 0.3);
+}
+
+.btn-rdv:active {
+  transform: translateY(-1px);
+}
+
+/* Empty States */
+.empty-state {
+  background: var(--background-white);
+  padding: 50px 30px;
+  text-align: center;
+  border-radius: var(--radius-medium);
+  border: 2px dashed var(--border-color);
+  color: var(--text-light);
+  margin: 20px 0;
+}
+
+.empty-state i {
+  font-size: 48px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+/* Appointments Section */
+.appointments-section {
+  margin-top: 60px;
+}
+
+.appointments-section .section-header {
+  margin-bottom: 25px;
+}
+
+.appointments-section .section-header h4::before {
+  background: linear-gradient(to right, #e67e22, #d35400);
+}
+
+/* Appointments Table */
+.appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--background-white);
+  border-radius: var(--radius-medium);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.appointments-table thead {
+  background: linear-gradient(135deg, #e67e22, #d35400);
+}
+
+.appointments-table th {
+  padding: 20px;
+  text-align: left;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.appointments-table tbody tr {
+  border-bottom: 1px solid var(--border-color);
+  transition: var(--transition-smooth);
+}
+
+.appointments-table tbody tr:hover {
+  background: rgba(230, 126, 34, 0.05);
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 8px 20px;
+  border-radius: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 12px;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: var(--transition-smooth);
+}
+
+.badge-waiting {
+  background: linear-gradient(135deg, #f1c40f, #f39c12);
+  box-shadow: 0 4px 15px rgba(241, 196, 15, 0.3);
+}
+
+.badge-success {
+  background: linear-gradient(135deg, var(--secondary-color), #6BB820);
+  box-shadow: 0 4px 15px rgba(126, 211, 33, 0.3);
+}
+
+.badge-danger {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Loading State */
+.loading-state {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRow {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulseBadge {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Floating Action Buttons */
+.fab-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+}
+
+.fab {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--primary-color), #357ABD);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  box-shadow: 0 8px 25px rgba(74, 144, 226, 0.4);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  animation: pulse 2s infinite;
+}
+
+.fab:hover {
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: 0 12px 35px rgba(74, 144, 226, 0.6);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 8px 25px rgba(74, 144, 226, 0.4);
+  }
+  50% {
+    box-shadow: 0 8px 30px rgba(74, 144, 226, 0.6);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .dashboard-container {
+    padding: 20px;
+  }
+  
+  .welcome-banner {
+    padding: 25px;
+  }
+  
+  .welcome-banner h3 {
+    font-size: 24px;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .available-badge {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .doctors-table,
+  .appointments-table {
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .doctor-cell {
+    min-width: 200px;
+  }
+  
+  .btn-rdv {
+    padding: 10px 18px;
+    font-size: 13px;
+  }
+  
+  .fab-container {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .fab {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .dashboard-container {
+    padding: 0;
+    background: white;
+  }
+  
+  .welcome-banner {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  
+  .btn-rdv,
+  .fab-container {
+    display: none;
+  }
+  
+  table {
+    break-inside: avoid;
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #357ABD;
+}

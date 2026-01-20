@@ -1,0 +1,71 @@
+<nav class="navbar" *ngIf="authService.isLoggedIn()">
+  <!-- Notification Dot -->
+  <div class="notification-dot"></div>
+  
+  <!-- Brand Section -->
+  <a routerLink="/" class="navbar-brand">
+    <i class="fas fa-hospital-symbol"></i>
+    <span>Hôpital Plus</span>
+  </a>
+
+  <!-- Navigation Links -->
+  <div class="nav-links">
+    <!-- Patients Link -->
+    <a routerLink="/patients" 
+       routerLinkActive="active" 
+       *ngIf="authService.getRole() === 'ADMIN' || authService.getRole() === 'MEDECIN'"
+       title="Gestion des patients">
+      <i class="fas fa-users"></i>
+      <span>Patients</span>
+    </a>
+
+    <!-- Admin Personnel Management -->
+    <a routerLink="/admin/medecins" 
+       routerLinkActive="active" 
+       *ngIf="authService.getRole() === 'ADMIN'" 
+       class="admin-link"
+       title="Gestion du personnel médical">
+      <i class="fas fa-user-md"></i>
+      <span>Gérer le Personnel</span>
+    </a>
+
+    <!-- Patient Dashboard -->
+    <a routerLink="/patient-dashboard" 
+       routerLinkActive="active" 
+       *ngIf="authService.getRole() === 'PATIENT'"
+       title="Mon tableau de bord">
+      <i class="fas fa-heartbeat"></i>
+      <span>Mon Suivi</span>
+    </a>
+
+    <!-- Doctor Dashboard -->
+    <a routerLink="/medecin-dashboard" 
+       routerLinkActive="active" 
+       *ngIf="authService.getRole() === 'MEDECIN'"
+       title="Tableau de bord médecin">
+      <i class="fas fa-stethoscope"></i>
+      <span>Mes Consultations</span>
+    </a>
+  </div>
+
+  <!-- User Section -->
+  <div class="user-section">
+    <div class="user-info">
+      <span class="user-name" title="{{ getUserDisplayName() }}">
+        {{ getUserDisplayName() | slice:0:15 }}{{ getUserDisplayName().length > 15 ? '...' : '' }}
+      </span>
+      <span class="user-role" [style.background]="getRoleColor()">
+        {{ authService.getRole() || 'Utilisateur' }}
+      </span>
+    </div>
+    
+    <button (click)="onLogout()" class="logout-btn" title="Se déconnecter">
+      <i class="fas fa-power-off"></i>
+      <span>Déconnexion</span>
+    </button>
+  </div>
+</nav>
+
+<main [class.logged-in-container]="authService.isLoggedIn()">
+  <router-outlet></router-outlet>
+</main>

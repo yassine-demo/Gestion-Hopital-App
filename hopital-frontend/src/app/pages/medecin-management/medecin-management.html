@@ -1,0 +1,127 @@
+<!-- Background Elements -->
+<div class="floating-elements">
+  <div class="floating-element">🏥</div>
+  <div class="floating-element">👨‍⚕️</div>
+  <div class="floating-element">❤️</div>
+  <div class="floating-element">🩺</div>
+</div>
+
+<div class="management-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="header-title">
+      <h2>👨‍⚕️ Gestion des Médecins</h2>
+      <span style="color: var(--text-light); font-size: 1rem; margin-top: 5px;">
+        Gérez les médecins autorisés dans le système
+      </span>
+    </div>
+    <button class="add-doctor-btn" (click)="openAddModal()">
+      <i class="fas fa-user-plus"></i>
+      <span>Autoriser un nouveau médecin</span>
+    </button>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-container">
+    <div class="stat-card">
+      <div class="stat-value">{{ medecins.length }}</div>
+      <div class="stat-label">Médecins Autorisés</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">
+        {{ getUniqueSpecialties().length }}
+      </div>
+      <div class="stat-label">Spécialités</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">
+        {{ getActiveDoctorsCount() }}
+      </div>
+      <div class="stat-label">Médecins Actifs</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">
+        {{ getTotalPatientsCapacity() }}
+      </div>
+      <div class="stat-label">Capacité Totale</div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Chargement des médecins...</p>
+    <p style="color: var(--text-light); margin-top: 10px; font-size: 0.9rem;">
+      Nous récupérons la liste des médecins autorisés
+    </p>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && medecins.length === 0" class="empty-state">
+    <i>👨‍⚕️</i>
+    <h3>Aucun médecin autorisé</h3>
+    <p>Aucun médecin n'est actuellement autorisé dans le système.</p>
+    <button class="add-doctor-btn" (click)="openAddModal()" style="margin-top: 20px;">
+      <i class="fas fa-user-plus"></i>
+      <span>Ajouter le Premier Médecin</span>
+    </button>
+  </div>
+
+  <!-- Doctors Table -->
+  <div *ngIf="!loading && medecins.length > 0" class="table-container">
+    <table class="doctors-table">
+      <thead>
+        <tr>
+          <th style="width: 100px;">CIN</th>
+          <th>Médecin</th>
+          <th>Spécialité</th>
+          <th>Contact</th>
+          <th style="width: 200px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of medecins; let i = index" [style.animation-delay]="i * 0.05 + 's'">
+          <td>
+            <span style="font-weight: 600; color: var(--primary-color); background: rgba(74, 144, 226, 0.1); padding: 6px 12px; border-radius: 6px;">
+              {{ m.cin }}
+            </span>
+          </td>
+          <td>
+            <div class="doctor-info-cell">
+              <div class="doctor-avatar">
+                {{ getDoctorInitials(m.nomComplet) }}
+              </div>
+              <div class="doctor-details">
+                <span class="doctor-name">{{ m.nomComplet }}</span>
+                <span class="doctor-title">Médecin autorisé</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="speciality-badge">
+              {{ m.specialite }}
+            </span>
+          </td>
+          <td>
+            <div class="contact-info">
+              <i class="fas fa-envelope"></i>
+              <span>{{ m.email || 'Email non disponible' }}</span>
+            </div>
+          </td>
+          <td>
+            <div class="action-buttons">
+              <button (click)="editMedecin(m)" class="action-btn btn-edit" title="Modifier les informations">
+                <i class="fas fa-edit"></i>
+                <span>Modifier</span>
+              </button>
+              <button (click)="deleteMedecin(m.id)" class="action-btn btn-delete" title="Supprimer le médecin">
+                <i class="fas fa-trash-alt"></i>
+                <span>Supprimer</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,232 @@
+<div class="dashboard-container">
+  <!-- Dashboard Header -->
+  <div class="dashboard-header">
+    <h1>Tableau de Bord Médecin</h1>
+    <p class="dashboard-subtitle">
+      Gestion des rendez-vous et suivi des patients en temps réel
+    </p>
+  </div>
+
+  <!-- Quick Stats -->
+  <ng-container *ngIf="rdvState$ | async as rdvState; else loadingStats">
+    <ng-container *ngIf="patientsState$ | async as pState">
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-value">{{ rdvState.rdvs?.length || 0 }}</div>
+          <div class="stat-label">Rendez-vous totaux</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value">
+            {{ getWaitingCount(rdvState.rdvs) }}
+          </div>
+          <div class="stat-label">En attente</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value">
+            {{ getConfirmedCount(rdvState.rdvs) }}
+          </div>
+          <div class="stat-label">Confirmés</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value">{{ pState.patients?.length || 0 }}</div>
+          <div class="stat-label">Patients suivis</div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #loadingStats>
+    <div class="stats-container">
+      <div class="stat-card">
+        <div class="stat-value">-</div>
+        <div class="stat-label">Chargement...</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">-</div>
+        <div class="stat-label">Chargement...</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">-</div>
+        <div class="stat-label">Chargement...</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">-</div>
+        <div class="stat-label">Chargement...</div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Rendez-vous Section -->
+  <div class="section-title">
+    <span class="icon">📅</span>
+    <h2>Demandes de Rendez-vous</h2>
+  </div>
+
+  <ng-container *ngIf="rdvState$ | async as rdvState">
+    <!-- Loading State -->
+    <div *ngIf="rdvState.loading" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Chargement des rendez-vous...</p>
+    </div>
+
+    <!-- Rendez-vous Table -->
+    <div *ngIf="!rdvState.loading && rdvState.rdvs.length > 0" class="table-wrapper">
+      <table class="rdv-table">
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Date & Heure</th>
+            <th>Motif</th>
+            <th>Statut</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rdv of rdvState.rdvs">
+            <td>
+              <div class="patient-info">
+                <div class="patient-avatar">
+                  {{ getPatientInitials(rdv.patient) }}
+                </div>
+                <div class="patient-details">
+                  <span class="patient-name">
+                    {{ getPatientFullName(rdv.patient) }}
+                  </span>
+                  <span class="patient-id">RDV #{{ rdv.id || 'N/A' }}</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="date-time">
+                <span class="date">{{ rdv.dateHeure | date:'dd/MM/yyyy' }}</span>
+                <span class="time">{{ rdv.dateHeure | date:'HH:mm' }}</span>
+              </div>
+            </td>
+            <td>
+              <div class="motif" [title]="rdv.motif">
+                {{ rdv.motif || 'Non spécifié' }}
+              </div>
+            </td>
+            <td>
+              <span [ngClass]="{
+                'status-badge badge-waiting': rdv.statut === 'EN_ATTENTE',
+                'status-badge badge-confirmed': rdv.statut === 'CONFIRME',
+                'status-badge badge-canceled': rdv.statut === 'ANNULE',
+                'status-badge badge-refused': rdv.statut === 'REFUSE'
+              }">
+                {{ getStatusDisplay(rdv.statut) }}
+              </span>
+            </td>
+            <td>
+                <div *ngIf="rdv.statut === 'EN_ATTENTE'" class="action-buttons">
+                    <button (click)="accepterRDV(rdv.id)" class="btn btn-success">✓ Accepter</button>
+                    <button (click)="refuserRDV(rdv.id)" class="btn btn-danger">✗ Refuser</button>
+                </div>
+                
+                <div *ngIf="rdv.statut === 'CONFIRME'" class="action-buttons">
+                    <button (click)="ouvrirFormulaireConsultation(rdv)" class="btn" style="background: #9b59b6; color: white;">
+                    <span>📝</span> Rédiger Rapport
+                    </button>
+                </div>
+
+                <div *ngIf="rdv.statut === 'TERMINE'">
+                    <span class="status-badge" style="background: #2c3e50; color: white;">✅ TERMINÉ</span>
+                </div>
+                </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!rdvState.loading && rdvState.rdvs.length === 0" class="empty-state">
+      <div class="empty-icon">📅</div>
+      <h3>Aucun rendez-vous</h3>
+      <p>Aucune demande de rendez-vous n'est actuellement en attente.</p>
+    </div>
+  </ng-container>
+
+  <!-- Divider -->
+  <hr class="section-divider">
+
+  <!-- Patients Section -->
+  <div class="section-title">
+    <span class="icon">👥</span>
+    <h2>Liste des Patients</h2>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <button class="quick-action-btn" (click)="refreshPatients()">
+      <span>🔄</span> Actualiser la liste
+    </button>
+    <button class="quick-action-btn" (click)="viewAllAppointments()">
+      <span>📋</span> Voir tous les RDV
+    </button>
+  </div>
+
+  <ng-container *ngIf="patientsState$ | async as pState">
+    <!-- Loading State -->
+    <div *ngIf="pState.loading" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Chargement des patients...</p>
+    </div>
+
+    <!-- Patients Table -->
+    <div *ngIf="!pState.loading && pState.patients.length > 0" class="table-wrapper">
+      <table class="rdv-table">
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Informations</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of pState.patients">
+            <td>
+              <div class="patient-info">
+                <div class="patient-avatar">
+                  {{ getPatientInitials(p) }}
+                </div>
+                <div class="patient-details">
+                  <span class="patient-name">
+                    {{ p.nom || 'Non spécifié' }} {{ p.prenom || '' }}
+                  </span>
+                  <span class="patient-id">ID: {{ p.id || 'N/A' }}</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div style="font-size: 0.9rem;">
+                <!-- Add any patient properties that exist in our Patient model -->
+                <div>Nom: {{ p.nom || '' }} {{ p.prenom || '' }}</div>
+                <div style="margin-top: 4px;">ID: {{ p.id || 'Non disponible' }}</div>
+              </div>
+            </td>
+            <td>
+              <div class="action-buttons">
+                <button (click)="viewPatientDetails(p)" class="btn" style="background: var(--doc-primary); color: white;">
+                  <span>👁️</span> Détails
+                </button>
+                <button (click)="deletePatient(p.id!)" class="btn btn-delete">
+                  <span>🗑️</span> Supprimer
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!pState.loading && pState.patients.length === 0" class="empty-state">
+      <div class="empty-icon">👥</div>
+      <h3>Aucun patient</h3>
+      <p>Aucun patient n'est actuellement enregistré dans votre liste.</p>
+    </div>
+  </ng-container>
+</div>

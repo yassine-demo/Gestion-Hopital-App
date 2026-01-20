@@ -1,0 +1,110 @@
+<div class="dashboard-container" style="padding: 20px;">
+  <div class="welcome-banner" style="background: #f9f9f9; padding: 25px; border-radius: 8px; border-left: 5px solid #27ae60; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+    <h3>Bienvenue, {{ authService.getNomComplet() }}</h3>
+    <p>Consultez la liste de nos spécialistes et planifiez votre prochaine consultation en un clic.</p>
+  </div>
+
+  <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px; margin-bottom: 15px;">
+    <h4>Nos Médecins Spécialistes</h4>
+    <span class="badge" style="background: #27ae60; color: white; padding: 5px 12px; border-radius: 20px;">
+      {{ medecins.length }} médecins disponibles
+    </span>
+  </div>
+
+  <table class="table" style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <thead>
+      <tr style="background: #2c3e50; color: white;">
+        <th style="padding: 15px; text-align: left;">Docteur</th>
+        <th style="padding: 15px; text-align: left;">Spécialité</th>
+        <th style="padding: 15px; text-align: left;">Contact</th>
+        <th style="padding: 15px; text-align: center;">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of medecins" style="border-bottom: 1px solid #eee;">
+        <td style="padding: 15px;">
+          <i class="fas fa-user-md" style="color: #3498db; margin-right: 8px;"></i>
+          <strong>{{ m.nomComplet }}</strong>
+        </td>
+        <td style="padding: 15px;">
+          <span style="background: #e1f5fe; color: #0277bd; padding: 6px 12px; border-radius: 4px; font-size: 0.9em; font-weight: bold;">
+            {{ m.specialite }}
+          </span>
+        </td>
+        <td style="padding: 15px; color: #7f8c8d;">{{ m.email }}</td>
+        <td style="padding: 15px; text-align: center;">
+          <button (click)="ouvrirFormulaireRDV(m)" 
+                  class="btn-rdv" 
+                  style="background: #27ae60; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; transition: 0.3s; font-weight: bold;">
+            <i class="far fa-calendar-check"></i> Prendre RDV
+          </button>
+        </td>
+      </tr>
+      
+      <tr *ngIf="medecins.length === 0">
+        <td colspan="4" style="padding: 30px; text-align: center; color: #95a5a6;">
+          Aucun médecin n'est disponible pour le moment.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+<div style="margin-top: 50px;">
+    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+      <h4 style="margin: 0;">📅 Mes Rendez-vous & Suivi</h4>
+    </div>
+
+    <ng-container *ngIf="mesRendezVous$ | async as state">
+
+      <div *ngIf="state.loading" style="text-align: center; padding: 20px; color: #7f8c8d;">
+        <i class="fas fa-spinner fa-spin"></i> Chargement de vos rendez-vous...
+      </div>
+
+      <table *ngIf="!state.loading && state.rdvs.length > 0" class="table" style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <thead>
+          <tr style="background: #e67e22; color: white;"> 
+            <th style="padding: 15px; text-align: left;">Médecin</th>
+            <th style="padding: 15px; text-align: left;">Date & Heure</th>
+            <th style="padding: 15px; text-align: left;">Motif</th>
+            <th style="padding: 15px; text-align: center;">Statut</th>
+            <th style="padding: 15px; text-align: center;">Résultat</th> </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rdv of state.rdvs" style="border-bottom: 1px solid #eee;">
+            <td style="padding: 15px;"><strong> {{ rdv.medecin.nomComplet || rdv.medecin.nom }}</strong></td>
+            <td style="padding: 15px;">{{ rdv.dateHeure | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td style="padding: 15px;">{{ rdv.motif }}</td>
+            <td style="padding: 15px; text-align: center;">
+              <span [ngClass]="{
+                  'badge-waiting': rdv.statut === 'EN_ATTENTE',
+                  'badge-success': rdv.statut === 'CONFIRME' || rdv.statut === 'TERMINE',
+                  'badge-danger': rdv.statut === 'ANNULE'
+                }"
+                style="padding: 6px 12px; border-radius: 20px; color: white; font-weight: bold; font-size: 0.85em; display: inline-block;">
+                
+                <ng-container *ngIf="rdv.statut === 'EN_ATTENTE'">⏳ EN ATTENTE</ng-container>
+                <ng-container *ngIf="rdv.statut === 'CONFIRME'">✅ CONFIRMÉ</ng-container>
+                <ng-container *ngIf="rdv.statut === 'TERMINE'"> TERMINÉ</ng-container>
+                <ng-container *ngIf="rdv.statut === 'ANNULE'">❌ ANNULÉ</ng-container>
+              </span>
+            </td>
+            <td style="padding: 15px; text-align: center;">
+              <button *ngIf="rdv.statut === 'TERMINE'" 
+                      (click)="voirMonRapport(rdv)"
+                      style="background: #3498db; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 0.8em;">
+                <i class="fas fa-file-medical"></i> Voir Ordonnance
+              </button>
+              <span *ngIf="rdv.statut !== 'TERMINE'" style="color: #bdc3c7; font-size: 0.8em;">Indisponible</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div *ngIf="!state.loading && state.rdvs.length === 0" style="background: #fff; padding: 30px; text-align: center; border-radius: 8px; border: 1px dashed #bdc3c7; color: #7f8c8d;">
+        Vous n'avez aucune demande de rendez-vous en cours.
+      </div>
+
+    </ng-container>
+  </div>
+
+</div>

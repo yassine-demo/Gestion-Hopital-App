@@ -1,0 +1,191 @@
+<div class="register-background">
+  <div class="medical-animation">
+    <div class="medical-pulse"></div>
+    <div class="medical-pulse"></div>
+    <div class="medical-pulse"></div>
+    <div class="medical-pulse"></div>
+    <div class="medical-pulse"></div>
+    <div class="medical-wave">⚕️</div>
+    <div class="medical-wave">🏥</div>
+  </div>
+</div>
+
+<div class="register-container">
+  <div class="register-header">
+    <h3>Création de compte</h3>
+    <div class="role-badge">
+      {{ user.role === 'PATIENT' ? 'Patient' : 'Médecin' }}
+    </div>
+  </div>
+  
+  <form (submit)="onRegister()" class="register-form">
+    <!-- Progress Indicator -->
+    <div class="progress-steps">
+      <div class="progress-step active"></div>
+      <div class="progress-step"></div>
+      <div class="progress-step"></div>
+    </div>
+    
+    <!-- Account Information -->
+    <div class="form-section">
+      <h4 style="color: var(--primary-color); margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+        <span>👤</span> Informations du compte
+      </h4>
+      
+      <div class="form-group required">
+        <label for="username">Nom d'utilisateur</label>
+        <input 
+          type="text" 
+          id="username"
+          [(ngModel)]="user.username" 
+          name="username"
+          class="form-control"
+          placeholder="Choisissez un nom d'utilisateur"
+          required>
+      </div>
+      
+      <div class="form-group required">
+        <label for="password">Mot de passe</label>
+        <input 
+          type="password" 
+          id="password"
+          [(ngModel)]="user.password" 
+          name="password"
+          class="form-control"
+          placeholder="Créez un mot de passe sécurisé"
+          required>
+      </div>
+    </div>
+
+    <!-- Role Selection -->
+    <div class="form-separator">
+      <span>Type de compte</span>
+    </div>
+
+    <div class="form-group">
+      <label for="role" style="display: flex; align-items: center; gap: 8px;">
+        <span></span> Je m'inscris en tant que :
+      </label>
+      <div class="select-wrapper">
+        <select 
+          id="role"
+          [(ngModel)]="user.role" 
+          name="role"
+          class="form-control">
+          <option value="PATIENT">👤 Patient</option>
+          <option value="MEDECIN">👨‍⚕️ Médecin</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Dynamic Role Sections -->
+    <div *ngIf="user.role === 'PATIENT'" class="role-section">
+      <h4>
+        <span>📋</span> Informations patient
+      </h4>
+      
+      <div class="form-group required">
+        <label for="nomComplet">Nom complet</label>
+        <input 
+          type="text" 
+          id="nomComplet"
+          [(ngModel)]="user.nomComplet" 
+          name="nomComplet"
+          class="form-control"
+          placeholder="Votre nom et prénom"
+          required>
+      </div>
+      
+      <div class="form-group required">
+        <label for="cin-patient">CIN</label>
+        <input 
+          type="text" 
+          id="cin-patient"
+          [(ngModel)]="user.cin" 
+          name="cin"
+          class="form-control"
+          placeholder="Numéro de CIN"
+          required>
+      </div>
+
+      <div class="form-group mb-3">
+    <label class="form-label">Téléphone *</label>
+    <input type="text" [(ngModel)]="user.telephone" name="telephone" 
+           class="form-control" placeholder="Votre numéro de téléphone" required>
+</div>
+
+<div class="form-group mb-3">
+    <label class="form-label">Adresse *</label>
+    <input type="text" [(ngModel)]="user.adresse" name="adresse" 
+           class="form-control" placeholder="Votre adresse actuelle" required>
+</div>
+
+  <div class="form-group mb-3">
+    <label class="form-label">Date de Naissance</label>
+    <input type="date" [(ngModel)]="user.dateNaissance" name="dateNaissance" class="form-control" required>
+</div>
+
+
+    </div>
+
+    <div *ngIf="user.role === 'MEDECIN'" class="role-section">
+      <h4>
+        <span>👨‍⚕️</span> Informations médecin
+      </h4>
+      
+      <div class="form-group required">
+        <label for="nomCompletMedecin">Nom du Docteur</label>
+        <input 
+          type="text" 
+          id="nomCompletMedecin"
+          [(ngModel)]="user.nomComplet" 
+          name="nomComplet"
+          class="form-control"
+          placeholder="Dr. Nom Prénom"
+          required>
+      </div>
+      
+      <div class="form-group required">
+        <label for="specialite">Spécialité</label>
+        <input 
+          type="text" 
+          id="specialite"
+          [(ngModel)]="user.specialite" 
+          name="specialite"
+          class="form-control"
+          placeholder="Ex: Cardiologie, Pédiatrie..."
+          required>
+      </div>
+      
+      <div class="form-group required">
+        <label for="cin-medecin">
+          <span></span> Numéro de CIN (Vérification identité)
+        </label>
+        <input 
+          type="text" 
+          id="cin-medecin"
+          [(ngModel)]="user.cin" 
+          name="cin"
+          class="form-control"
+          placeholder="CIN pour vérification"
+          required>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button 
+      type="submit" 
+      [disabled]="isLoading" 
+      class="btn-register"
+      [class.loading]="isLoading">
+      {{ isLoading ? 'Traitement en cours...' : 'S\'inscrire' }}
+    </button>
+
+    <!-- Login Link -->
+    <div class="login-link">
+      <a routerLink="/login">
+        <span>←</span> Déjà un compte ? Se connecter
+      </a>
+    </div>
+  </form>
+</div>

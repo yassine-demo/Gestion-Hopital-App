@@ -1,0 +1,415 @@
+/* Base Styles & Variables */
+:host {
+  --primary-color: #4A90E2;
+  --secondary-color: #7ED321;
+  --accent-color: #FF6B6B;
+  --background-light: #F8F9FA;
+  --background-white: #FFFFFF;
+  --text-dark: #333333;
+  --text-light: #666666;
+  --border-color: #E1E8ED;
+  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 15px 50px rgba(0, 0, 0, 0.1);
+  --radius-soft: 12px;
+  --radius-medium: 20px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Background Animation */
+.login-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+  z-index: -2;
+  overflow: hidden;
+}
+
+/* Animated Medical Dots */
+.medical-dots {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.medical-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgba(74, 144, 226, 0.1);
+  border-radius: 50%;
+  animation: float 15s infinite linear;
+}
+
+.medical-dot:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.medical-dot:nth-child(2) {
+  top: 60%;
+  left: 85%;
+  animation-delay: 2s;
+}
+
+.medical-dot:nth-child(3) {
+  top: 85%;
+  left: 20%;
+  animation-delay: 4s;
+}
+
+.medical-dot:nth-child(4) {
+  top: 40%;
+  left: 70%;
+  animation-delay: 6s;
+}
+
+.medical-dot:nth-child(5) {
+  top: 10%;
+  left: 50%;
+  animation-delay: 8s;
+}
+
+.medical-dot:nth-child(6) {
+  top: 75%;
+  left: 60%;
+  animation-delay: 10s;
+}
+
+/* Floating Plus Signs (Medical Symbol) */
+.plus-sign {
+  position: absolute;
+  color: rgba(126, 211, 33, 0.08);
+  font-size: 10px;
+  animation: floatPlus 15s infinite ease-in-out;
+}
+
+.plus-sign:nth-child(7) {
+  top: 15%;
+  left: 80%;
+  animation-delay: 1s;
+}
+
+.plus-sign:nth-child(8) {
+  top: 70%;
+  left: 15%;
+  animation-delay: 3s;
+}
+
+.plus-sign:nth-child(9) {
+  top: 85%;
+  left: 85%;
+  animation-delay: 5s;
+}
+
+/* Main Container */
+.login-container {
+  position: relative;
+  max-width: 420px;
+  margin: 80px auto;
+  padding: 40px 35px;
+  background: var(--background-white);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-medium);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transform: translateY(0);
+  transition: var(--transition-smooth);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.login-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+/* Header Section */
+.login-header {
+  text-align: center;
+  margin-bottom: 35px;
+  position: relative;
+}
+
+.login-header h2 {
+  color: var(--text-dark);
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  position: relative;
+  display: inline-block;
+}
+
+.login-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  border-radius: 2px;
+}
+
+.login-subtitle {
+  color: var(--text-light);
+  font-size: 14px;
+  margin-top: 15px;
+  opacity: 0.8;
+}
+
+/* Form Styling */
+.login-form {
+  position: relative;
+}
+
+.form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+  font-weight: 500;
+  font-size: 14px;
+  transition: var(--transition-smooth);
+}
+
+.form-control {
+  width: 85%;
+  padding: 16px 20px 16px 45px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-soft);
+  font-size: 15px;
+  transition: var(--transition-smooth);
+  background: var(--background-light);
+  color: var(--text-dark);
+  outline: none;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  background: var(--background-white);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.form-control::placeholder {
+  color: #A0AEC0;
+}
+
+/* Form Icons */
+.form-icon {
+  position: absolute;
+  left: 15px;
+  top: 42px;
+  color: var(--text-light);
+  transition: var(--transition-smooth);
+}
+
+.form-control:focus + .form-icon {
+  color: var(--primary-color);
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  height: 50px;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--primary-color), #357ABD);
+  color: white;
+  border: none;
+  border-radius: var(--radius-soft);
+  font-size: 18px;
+  font-weight: 350;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  word-spacing: 2px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #357ABD, var(--primary-color));
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(74, 144, 226, 0.3);
+  font-weight: 550;
+  letter-spacing: 1px;
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Register Section */
+.register-section {
+  margin-top: 30px;
+  text-align: center;
+  padding-top: 25px;
+  border-top: 1px solid rgba(225, 232, 237, 0.5);
+}
+
+.register-section p {
+  color: var(--text-light);
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.register-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 24px;
+  background: rgba(126, 211, 33, 0.1);
+  border-radius: var(--radius-soft);
+  transition: var(--transition-smooth);
+}
+
+.register-link:hover {
+  background: rgba(70, 135, 0, 0.2);
+  transform: translateX(5px);
+}
+
+.register-link i {
+  font-size: 14px;
+}
+
+/* Error Message */
+.error-message {
+  color: var(--accent-color);
+  background: rgba(255, 107, 107, 0.1);
+  padding: 12px 16px;
+  border-radius: var(--radius-soft);
+  margin-top: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: slideIn 0.3s ease-out;
+  border-left: 4px solid var(--accent-color);
+}
+
+.error-message::before {
+  content: '⚠️';
+}
+
+/* Medical Logo */
+.medical-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  animation: pulse 2s infinite;
+}
+
+.medical-logo i {
+  color: white;
+  font-size: 24px;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  50% {
+    transform: translateY(10px) translateX(-10px);
+  }
+  75% {
+    transform: translateY(-10px) translateX(-20px);
+  }
+}
+
+@keyframes floatPlus {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.08;
+  }
+  50% {
+    transform: translateY(-40px) rotate(180deg);
+    opacity: 0.15;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(74, 144, 226, 0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .login-container {
+    margin: 40px 20px;
+    padding: 30px 25px;
+  }
+  
+  .login-header h2 {
+    font-size: 24px;
+  }
+  
+  .form-control {
+    padding: 14px 20px 14px 45px;
+  }
+}
+
+/* Loading State */
+.submit-btn.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.submit-btn.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s linear infinite;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
